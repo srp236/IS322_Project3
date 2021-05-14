@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import TaskList from './TaskList';
+import AddTask from './AddTask';
+import Card from './Card';
+
+class App extends React.Component {
+  state = {
+    tasks: [],
+    errorMessage: ''
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    axios.get('http://my-json-server.typicode.com/srp236/project3DB/accounts')
+      .then(response => {
+        this.setState({ tasks: response.data });
+      }).catch(error => {
+        this.setState({ errorMessage: error.message });
+      });
+  }
+
+  render() {
+    return null;
+  }
 }
 
 export default App;
